@@ -1,0 +1,17 @@
+{
+  "name": "Torneos · gestor de torneos deportivos",
+  "short_name": "Torneos",
+  "description": "Crea y lleva torneos de cualquier deporte: equipos, modalidades y anotación configurable.",
+  "lang": "es-CL",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#060d22",
+  "theme_color": "#060d22",
+  "icons": [
+    { "src": "img/logo-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "img/logo-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "img/logo-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

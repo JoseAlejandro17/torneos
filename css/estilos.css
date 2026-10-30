@@ -5,37 +5,38 @@
    ========================================================================= */
 
 :root {
-  /* Superficies en capas, sin negro puro */
-  --fondo: #09090b;
-  --superficie: #131316;
-  --superficie-2: #1c1c20;
-  --superficie-3: #27272a;
-  --superficie-4: #3f3f46;
+  /* Superficies: azul marino del logo, en capas. Nunca negro puro. */
+  --fondo: #060d22;
+  --superficie: #0b1530;
+  --superficie-2: #122043;
+  --superficie-3: #1b2d57;
+  --superficie-4: #2a3f6e;
 
   /* Bordes discretos de 1px */
-  --borde: #27272a;
-  --borde-suave: #1f1f23;
-  --borde-fuerte: #3f3f46;
+  --borde: #1c2b52;
+  --borde-suave: #152243;
+  --borde-fuerte: #2a3f6e;
 
   /* Texto: jerarquía por peso y opacidad, no solo por tamaño */
-  --texto: #fafafa;
-  --texto-2: #a1a1aa;   /* 7.4:1 sobre el fondo */
-  --texto-3: #8b8b94;   /* 5.5:1: el mínimo AA incluso en texto chico */
+  --texto: #f2f5fb;
+  --texto-2: #a8b6d4;   /* 8.9:1 sobre el fondo */
+  --texto-3: #8798ba;   /* 5.9:1: cumple AA hasta en texto chico */
 
-  /* Acento único */
-  --acento: #4ade80;
-  --acento-fuerte: #22c55e;
-  --acento-contraste: #052e16;
-  --acento-tenue: rgba(74, 222, 128, 0.12);
-  --acento-borde: rgba(74, 222, 128, 0.35);
+  /* Acento único: el dorado del escudo */
+  --acento: #fac43d;
+  --acento-fuerte: #e5a81f;
+  --acento-contraste: #2b1c00;
+  --acento-tenue: rgba(250, 196, 61, 0.14);
+  --acento-borde: rgba(250, 196, 61, 0.38);
 
   /* Colores de estado, usados con moderación */
-  --alerta: #f87171;
-  --alerta-tenue: rgba(248, 113, 113, 0.12);
-  --aviso: #fbbf24;
-  --aviso-tenue: rgba(251, 191, 36, 0.12);
-  --azul: #60a5fa;
-  --azul-tenue: rgba(96, 165, 250, 0.12);
+  --alerta: #f8766b;
+  --alerta-tenue: rgba(248, 118, 107, 0.14);
+  --aviso: #e8763a;
+  --aviso-tenue: rgba(232, 118, 58, 0.16);
+  --azul: #5ab4f0;
+  --azul-tenue: rgba(90, 180, 240, 0.14);
+  --exito: #58d68f;
 
   /* Escala de espaciado: múltiplos de 4 */
   --e1: 4px;
@@ -53,9 +54,9 @@
   --radio-xl: 16px;
 
   /* Sombras suaves y difusas */
-  --sombra-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --sombra: 0 4px 16px rgba(0, 0, 0, 0.35);
-  --sombra-lg: 0 12px 36px rgba(0, 0, 0, 0.45);
+  --sombra-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --sombra: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --sombra-lg: 0 12px 36px rgba(0, 0, 0, 0.5);
 
   --transicion: 150ms ease-out;
   --fuente: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -112,7 +113,7 @@ a:hover { color: var(--acento); }
   align-items: center;
   gap: var(--e3);
   padding: var(--e2) var(--e4);
-  background: rgba(9, 9, 11, 0.85);
+  background: rgba(6, 13, 34, 0.86);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--borde);
   position: sticky;
@@ -130,7 +131,11 @@ a:hover { color: var(--acento); }
   letter-spacing: -0.02em;
 }
 .marca:hover { color: var(--texto); }
-.marca-icono { font-size: 1.2rem; }
+.marca-logo {
+  width: 30px; height: 30px;
+  border-radius: var(--radio-sm);
+  display: block;
+}
 .marca-texto { display: none; }
 
 .menu { display: flex; gap: var(--e1); flex: 1; flex-wrap: wrap; }
@@ -600,7 +605,7 @@ tr.clasifica td:first-child { box-shadow: inset 2px 0 0 var(--acento); }
   margin-top: var(--e3); display: flex; flex-direction: column; gap: 2px;
   font-size: 0.85rem; min-height: 1.4em;
 }
-.marcador-ok { color: var(--acento); font-weight: 500; }
+.marcador-ok { color: var(--exito); font-weight: 500; }
 .marcador-empate { color: var(--texto-2); }
 .marcador-ojo { color: var(--aviso); }
 
@@ -608,7 +613,7 @@ tr.clasifica td:first-child { box-shadow: inset 2px 0 0 var(--acento); }
 
 .capa-modal {
   position: fixed; inset: 0; z-index: 100;
-  background: rgba(9, 9, 11, 0.75);
+  background: rgba(6, 13, 34, 0.78);
   display: flex; align-items: center; justify-content: center;
   padding: var(--e4);
   backdrop-filter: blur(4px);
@@ -668,6 +673,48 @@ tr.clasifica td:first-child { box-shadow: inset 2px 0 0 var(--acento); }
   to { opacity: 1; transform: none; }
 }
 
+/* ---------------------------------------------------------------- Portada */
+
+.portada {
+  position: relative;
+  border-radius: var(--radio-xl);
+  overflow: hidden;
+  border: 1px solid var(--borde);
+  background: var(--superficie) url('../img/cancha-chica.jpg') center/cover no-repeat;
+  padding: var(--e7) var(--e4);
+  text-align: center;
+  isolation: isolate;
+}
+/* Un velo encima para que el texto se lea sobre la foto. */
+.portada::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(6, 13, 34, 0.78) 0%, rgba(6, 13, 34, 0.93) 70%);
+}
+.portada-logo {
+  width: 84px; height: 84px;
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra);
+  margin-bottom: var(--e3);
+}
+.portada h2 {
+  font-size: 1.4rem;
+  margin-bottom: var(--e2);
+  text-shadow: 0 1px 12px rgba(6, 13, 34, 0.8);
+}
+.portada p {
+  color: var(--texto-2);
+  max-width: 44ch;
+  margin: 0 auto var(--e5);
+  text-shadow: 0 1px 10px rgba(6, 13, 34, 0.8);
+}
+.portada-deportes {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: var(--e2); margin-top: var(--e5);
+}
+
 /* ------------------------------------------------------------------ Varios */
 
 .vacio {
@@ -704,7 +751,7 @@ tr.clasifica td:first-child { box-shadow: inset 2px 0 0 var(--acento); }
 .centrado { text-align: center; }
 .tenue { color: var(--texto-3); }
 .suave { color: var(--texto-2); }
-.mono { font-variant-numeric: tabular-nums; }
+.mono { font-variant-numeric: tabular-nums; white-space: nowrap; }
 .nada { margin: 0; }
 .separador { height: 1px; background: var(--borde-suave); margin: var(--e4) 0; }
 
@@ -799,6 +846,7 @@ tr.clasifica td:first-child { box-shadow: inset 2px 0 0 var(--acento); }
 
 @media (min-width: 1024px) {
   .contenido { padding: var(--e6) var(--e5) var(--e7); }
+  .portada { background-image: url('../img/cancha.jpg'); padding: var(--e7) var(--e5); }
   .tarjeta { padding: var(--e5); }
   .llave-ronda { min-width: 240px; }
 }

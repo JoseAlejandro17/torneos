@@ -1,7 +1,7 @@
 // Pantalla de inicio: lista de torneos.
 
 import { el, fechaLegible } from '../util.js';
-import { torneos, deporte, sistema, borrarTorneo, duplicarTorneo, personas } from '../modelo.js';
+import { torneos, deporte, deportes, sistema, borrarTorneo, duplicarTorneo, personas } from '../modelo.js';
 import { resumenTorneo } from '../fixture.js';
 import { resumenSistema } from '../anotacion.js';
 import { nombreEquipo } from '../equipos.js';
@@ -24,21 +24,32 @@ export function vistaInicio() {
   ]);
 
   if (!lista.length) {
-    return [
-      encabezado,
-      vacio({
-        icono: '🏆',
-        titulo: 'Empecemos por el primer torneo',
-        mensaje: 'Elige el deporte, arma los equipos y define la modalidad y la forma de anotar.',
-        accion: el('a', { class: 'boton boton-primario boton-grande', href: '#/nuevo', text: 'Crear un torneo' }),
-      }),
-    ];
+    return [encabezado, portada()];
   }
 
   return [
     encabezado,
     el('div', { class: 'rejilla rejilla-ancha' }, lista.map(tarjetaTorneo)),
   ];
+}
+
+/** Primera pantalla: la foto de la cancha y el acceso para crear el torneo. */
+function portada() {
+  return el('section', { class: 'portada' }, [
+    el('img', {
+      class: 'portada-logo',
+      src: 'img/logo-192.png',
+      alt: '',
+      width: '84',
+      height: '84',
+    }),
+    el('h2', { text: 'Tu primer torneo parte acá' }),
+    el('p', { text: 'Elige el deporte, arma los equipos y define cómo se juega y cómo se anota. Después basta con ir cargando los resultados.' }),
+    el('a', { class: 'boton boton-primario boton-grande', href: '#/nuevo', text: 'Crear un torneo' }),
+    el('div', { class: 'portada-deportes' }, deportes().slice(0, 7).map((dep) =>
+      etiqueta(`${dep.icono} ${dep.nombre}`)
+    )),
+  ]);
 }
 
 function tarjetaTorneo(torneo) {
