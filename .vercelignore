@@ -1,0 +1,5 @@
+# No hace falta publicar lo que solo sirve para desarrollar.
+pruebas/
+servidor.mjs
+iniciar.bat
+.claude/

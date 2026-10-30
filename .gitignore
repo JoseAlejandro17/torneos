@@ -1,0 +1,16 @@
+# Dependencias
+node_modules/
+
+# Configuración local de herramientas
+.claude/
+.vercel/
+
+# Sistema operativo
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Editores
+.vscode/
+.idea/
+*.swp
