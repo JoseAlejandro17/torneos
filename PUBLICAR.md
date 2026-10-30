@@ -36,32 +36,21 @@ El repositorio está creado y el código subido:
 
 De aquí en adelante, cada `git push` sube los cambios nuevos.
 
-## Paso 3 — Publicar en Vercel
+## Paso 3 — Vercel ✅ hecho
 
-1. Entra a [vercel.com/new](https://vercel.com/new).
-2. Elige el repositorio `torneos`.
-3. **No toques nada más.** Vercel va a mostrar:
-   - Framework Preset: **Other**
-   - Build Command: vacío
-   - Output Directory: vacío
+La aplicación está publicada y abierta a cualquiera:
 
-   Así está bien: no hay nada que compilar, son archivos listos para servir.
-4. Apreta **Deploy** y espera menos de un minuto.
+**https://torneos-ppalejandro17-6877s-projects.vercel.app**
 
-Vercel te va a dar una dirección tipo `https://torneos.vercel.app`. Si ese nombre está
-tomado, te propone otro (`torneos-joses-projects.vercel.app` o parecido); también lo puedes
-cambiar después en **Settings → Domains**.
+Quedó conectada al repositorio, así que cada `git push` la actualiza sola en menos de un
+minuto. No hay variables de entorno ni nada que configurar.
 
-Listo: esa dirección se abre desde cualquier celular.
+> Para que se viera desde afuera hubo que apagar **Settings → Deployment Protection →
+> Vercel Authentication**, que Vercel deja encendida por omisión: sin eso, el sitio le pedía
+> iniciar sesión a cualquiera que entrara.
 
----
-
-## Sobre el despliegue temporal
-
-Mientras tanto hay una versión andando en una dirección provisoria de Vercel, hecha sin
-cuenta. **Dura 60 minutos** y después se apaga sola. Sirvió para comprobar que todo funciona
-publicado, pero no reemplaza el paso 3: conectar el repositorio deja la dirección para
-siempre y, además, la actualiza sola con cada `git push`.
+Si quieres una dirección más corta y fácil de dictar, en **Settings → Domains** puedes
+agregar `torneos.vercel.app` (estaba libre). Queda funcionando en las dos.
 
 ---
 

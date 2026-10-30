@@ -4,8 +4,11 @@ Gestor de torneos deportivos para cualquier deporte o juego, con la cantidad de
 integrantes por equipo que uno quiera. Empezamos con pádel, pero nada en la
 aplicación está amarrado a un deporte en particular.
 
+**En línea:** https://torneos-ppalejandro17-6877s-projects.vercel.app
+
 Todo corre en el navegador y se guarda en el mismo computador (`localStorage`):
-no hay servidor, ni cuentas, ni internet de por medio.
+no hay servidor, ni cuentas, ni internet de por medio. Publicada o no, los
+torneos viven en el dispositivo donde los creaste.
 
 ## Cómo se echa a andar
 
