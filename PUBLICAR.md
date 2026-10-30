@@ -28,26 +28,13 @@ El repositorio local ya está hecho, con el primer commit listo. Solo falta cone
 
 ---
 
-## Paso 1 — Crear el repositorio en GitHub
+## Pasos 1 y 2 — GitHub ✅ hecho
 
-1. Entra a [github.com/new](https://github.com/new).
-2. Nombre: `torneos`.
-3. Elige **Public** (o Private, da lo mismo para publicar).
-4. **No marques** ninguna de las casillas de abajo (README, .gitignore, licencia): el
-   proyecto ya los trae y chocarían.
-5. Apreta **Create repository**.
+El repositorio está creado y el código subido:
 
-## Paso 2 — Subir el código
+**https://github.com/JoseAlejandro17/torneos**
 
-Copia y pega esto en la terminal, parado en la carpeta del proyecto:
-
-```bash
-git remote add origin https://github.com/JoseAlejandro17/torneos.git
-git push -u origin main
-```
-
-Si te pide usuario y clave, se abre el navegador para que entres a GitHub: es la misma cuenta
-de siempre.
+De aquí en adelante, cada `git push` sube los cambios nuevos.
 
 ## Paso 3 — Publicar en Vercel
 
@@ -66,6 +53,15 @@ tomado, te propone otro (`torneos-joses-projects.vercel.app` o parecido); tambi�
 cambiar después en **Settings → Domains**.
 
 Listo: esa dirección se abre desde cualquier celular.
+
+---
+
+## Sobre el despliegue temporal
+
+Mientras tanto hay una versión andando en una dirección provisoria de Vercel, hecha sin
+cuenta. **Dura 60 minutos** y después se apaga sola. Sirvió para comprobar que todo funciona
+publicado, pero no reemplaza el paso 3: conectar el repositorio deja la dirección para
+siempre y, además, la actualiza sola con cada `git push`.
 
 ---
 
