@@ -169,7 +169,7 @@ function jornadasRoundRobin(ids) {
   return jornadas;
 }
 
-function partidosRoundRobin(ids, { vueltas = 1, fase = 'liga', grupo = null, rondaInicial = 0 } = {}) {
+function partidosRoundRobin(ids, { vueltas = 1, fase = 'liga', grupo = null, rondaInicial = 0, rotularGrupo = true } = {}) {
   const partidos = [];
   let ronda = rondaInicial;
   for (let vuelta = 0; vuelta < vueltas; vuelta++) {
@@ -182,7 +182,7 @@ function partidosRoundRobin(ids, { vueltas = 1, fase = 'liga', grupo = null, ron
           grupo,
           ronda,
           orden: orden++,
-          rotulo: grupo
+          rotulo: grupo && rotularGrupo
             ? `Grupo ${grupo} · Fecha ${ronda - rondaInicial + 1}`
             : `Fecha ${ronda - rondaInicial + 1}`,
           equipoA: a,
@@ -233,7 +233,7 @@ export function generarFixture(torneo) {
   }
 
   if (torneo.modalidad === 'grupos') {
-    const cantidadGrupos = Math.max(2, Number(opciones.cantidadGrupos) || 2);
+    const cantidadGrupos = Math.max(1, Number(opciones.cantidadGrupos) || 2);
     const clasificanPorGrupo = Math.max(1, Number(opciones.clasificanPorGrupo) || 2);
     const grupos = repartirSerpentina(ids, cantidadGrupos);
     const letras = grupos.map((_, i) => String.fromCharCode(65 + i));
@@ -245,6 +245,7 @@ export function generarFixture(torneo) {
         fase: 'grupos',
         grupo: letras[indice],
         rondaInicial: 0,
+        rotularGrupo: cantidadGrupos > 1,
       }));
     });
 

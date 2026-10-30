@@ -78,7 +78,10 @@ sin salir de la pantalla: se escribe el nombre y se presiona Enter.
 - **Todos contra todos** — a una o dos vueltas, con final opcional entre el 1º y
   el 2º de la tabla.
 - **Fase de grupos + eliminatoria** — grupos repartidos en serpentina, los
-  mejores de cada grupo pasan a la llave sin cruzarse entre primeros.
+  mejores de cada grupo pasan a la llave sin cruzarse entre primeros. Con **un
+  solo grupo** queda una liga con playoffs: todos contra todos y después la
+  eliminatoria, cruzando 1º-4º y 2º-3º (o 1º-8º, 4º-5º, 2º-7º y 3º-6º si pasan
+  ocho). Se puede jugar a una o dos vueltas.
 - **Sistema suizo** — rondas fijas, emparejando por puntaje sin repetir rivales;
   con cantidad impar, uno descansa cada ronda y suma como si hubiera ganado.
 - **Americano (parejas rotativas)** — nadie tiene pareja fija: en cada ronda

@@ -397,9 +397,10 @@ function panelTablas(torneo, sis) {
     if (!entradas.length) {
       return vacio({ icono: '📊', titulo: 'Sin tabla todavía', mensaje: 'Genera el calendario para ver las posiciones.' });
     }
+    const unSoloGrupo = entradas.length === 1;
     return el('div', { class: 'apilado' }, entradas.map(([letra, tabla]) =>
       el('div', { class: 'tarjeta' }, [
-        el('h3', { text: `Grupo ${letra}` }),
+        el('h3', { text: unSoloGrupo ? 'Tabla de posiciones' : `Grupo ${letra}` }),
         tablaDePosiciones(torneo, sis, tabla, clasifican),
       ])
     ));
@@ -539,7 +540,11 @@ function opcionesLegibles(torneo) {
     if (o.playoffFinal) lineas.push('Cierra con una final entre el 1º y el 2º de la tabla.');
   }
   if (torneo.modalidad === 'grupos') {
-    lineas.push(`${o.cantidadGrupos} grupos; clasifican ${o.clasificanPorGrupo} de cada uno.`);
+    lineas.push(
+      Number(o.cantidadGrupos) === 1
+        ? `Todos contra todos${o.vueltas > 1 ? ' (ida y vuelta)' : ''}; los ${o.clasificanPorGrupo} mejores pasan a la eliminatoria.`
+        : `${o.cantidadGrupos} grupos${o.vueltas > 1 ? ' a ida y vuelta' : ''}; clasifican ${o.clasificanPorGrupo} de cada uno.`
+    );
   }
   if (torneo.modalidad === 'suizo') {
     lineas.push(`${o.rondas} rondas.`);

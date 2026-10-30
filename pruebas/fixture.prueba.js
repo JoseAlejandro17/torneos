@@ -425,3 +425,66 @@ test('americano completo: se puede cortar en menos rondas', () => {
   assert.equal([...new Set(torneo.partidos.map((p) => p.ronda))].length, 6);
   assert.equal(torneo.partidos.filter((p) => p.estado !== 'descanso').length, 6);
 });
+
+// ------------------------------- Un solo grupo: liga con playoffs
+
+test('un grupo con 6 equipos: todos contra todos y semis 1-4 y 2-3', () => {
+  const torneo = torneoDe(6, 'grupos', {
+    cantidadGrupos: 1, clasificanPorGrupo: 4, tercerPuesto: true, vueltas: 1,
+    puntosVictoria: 3, puntosEmpate: 1, puntosDerrota: 0,
+  });
+  torneo.partidos = generarFixture(torneo);
+
+  const fase = torneo.partidos.filter((p) => p.fase === 'grupos');
+  assert.equal(fase.length, 15, 'con 6 equipos son 15 cruces');
+  assert.equal(new Set(fase.map((p) => p.grupo)).size, 1, 'hay un solo grupo');
+  assert.ok(fase.every((p) => p.rotulo.startsWith('Fecha')), 'no dice "Grupo A": es una liga');
+
+  // Jugamos todo de forma que la tabla quede ordenada e1 > e2 > ... > e6.
+  for (const partido of fase) {
+    const iA = Number(partido.equipoA.slice(1));
+    const iB = Number(partido.equipoB.slice(1));
+    anotar(partido, iA < iB ? 'A' : 'B');
+  }
+  avanzarFixture(torneo, sistemaSet);
+
+  const tabla = tablasPorGrupo(torneo, sistemaSet).A;
+  assert.deepEqual(tabla.slice(0, 4).map((f) => f.equipoId), ['e1', 'e2', 'e3', 'e4']);
+
+  // Lo que pidió el usuario: 1º contra 4º y 2º contra 3º.
+  const semis = torneo.partidos.filter((p) => p.rotulo === 'Semifinales');
+  assert.equal(semis.length, 2);
+  const cruces = semis.map((p) => [p.equipoA, p.equipoB].join(' vs '));
+  assert.ok(cruces.includes('e1 vs e4'), `esperaba 1º vs 4º, salió ${cruces}`);
+  assert.ok(cruces.includes('e2 vs e3'), `esperaba 2º vs 3º, salió ${cruces}`);
+
+  // Y el torneo se puede terminar.
+  for (const partido of semis) anotar(partido, 'A');
+  avanzarFixture(torneo, sistemaSet);
+  const final = torneo.partidos.find((p) => p.rotulo === 'Final');
+  assert.deepEqual([final.equipoA, final.equipoB], ['e1', 'e2']);
+  const tercero = torneo.partidos.find((p) => p.fase === 'tercerPuesto');
+  assert.deepEqual([tercero.equipoA, tercero.equipoB].sort(), ['e3', 'e4']);
+});
+
+test('un grupo a ida y vuelta duplica los partidos de la fase', () => {
+  const torneo = torneoDe(6, 'grupos', { cantidadGrupos: 1, clasificanPorGrupo: 4, vueltas: 2 });
+  torneo.partidos = generarFixture(torneo);
+  assert.equal(torneo.partidos.filter((p) => p.fase === 'grupos').length, 30);
+});
+
+test('un grupo con 2 clasificados va directo a la final', () => {
+  const torneo = torneoDe(5, 'grupos', { cantidadGrupos: 1, clasificanPorGrupo: 2 });
+  torneo.partidos = generarFixture(torneo);
+  const llave = torneo.partidos.filter((p) => p.fase === 'llave');
+  assert.equal(llave.length, 1);
+  assert.equal(llave[0].rotulo, 'Final');
+});
+
+test('con varios grupos se sigue rotulando cada grupo', () => {
+  const torneo = torneoDe(8, 'grupos', { cantidadGrupos: 2, clasificanPorGrupo: 2 });
+  torneo.partidos = generarFixture(torneo);
+  const fase = torneo.partidos.filter((p) => p.fase === 'grupos');
+  assert.ok(fase.some((p) => p.rotulo.startsWith('Grupo A')));
+  assert.ok(fase.some((p) => p.rotulo.startsWith('Grupo B')));
+});

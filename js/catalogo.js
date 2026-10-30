@@ -370,7 +370,7 @@ export const MODALIDADES = [
     id: 'grupos',
     nombre: 'Fase de grupos + eliminatoria',
     icono: '🗂️',
-    descripcion: 'Se arman grupos que juegan todos contra todos y los mejores de cada grupo pasan a una llave de eliminación.',
+    descripcion: 'Se arman grupos que juegan todos contra todos y los mejores pasan a una llave de eliminación. Con un solo grupo queda una liga con playoffs: 1º contra 4º y 2º contra 3º.',
     minimoEquipos: 4,
   },
   {

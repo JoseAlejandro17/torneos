@@ -898,18 +898,44 @@ function opcionesDeModalidad(dibujar) {
   }
 
   if (borrador.modalidad === 'grupos') {
-    const maxGrupos = Math.max(2, Math.floor(cantidad / 2));
+    const maxGrupos = Math.max(1, Math.floor(cantidad / 2));
+    const unSoloGrupo = Number(o.cantidadGrupos) === 1;
+
     piezas.push(el('div', { class: 'campo-fila' }, [
-      campo({ etiqueta: 'Cantidad de grupos', control: numero('cantidadGrupos', { min: 2, max: maxGrupos }) }),
-      campo({ etiqueta: 'Clasifican por grupo', control: numero('clasificanPorGrupo', { min: 1, max: 8 }) }),
+      campo({
+        etiqueta: 'Cantidad de grupos',
+        ayuda: unSoloGrupo ? 'Con 1 grupo: todos contra todos y después la llave.' : null,
+        control: numero('cantidadGrupos', { min: 1, max: Math.max(1, maxGrupos) }),
+      }),
+      campo({
+        etiqueta: unSoloGrupo ? 'Cuántos clasifican' : 'Clasifican por grupo',
+        control: numero('clasificanPorGrupo', { min: 1, max: Math.max(2, cantidad) }),
+      }),
+      campo({
+        etiqueta: 'Vueltas',
+        control: (() => {
+          const selector = el('select', {}, [
+            el('option', { value: '1', text: 'Una vuelta' }),
+            el('option', { value: '2', text: 'Ida y vuelta' }),
+          ]);
+          selector.value = String(o.vueltas || 1);
+          selector.addEventListener('change', () => { o.vueltas = Number(selector.value); dibujar(); });
+          return selector;
+        })(),
+      }),
     ]));
+
     const porGrupo = Math.ceil(cantidad / o.cantidadGrupos);
     const clasificados = o.cantidadGrupos * o.clasificanPorGrupo;
-    piezas.push(el('p', {
-      class: 'ayuda',
-      text: `Quedan grupos de ${porGrupo} equipos y pasan ${clasificados} a la eliminatoria.`
-        + (clasificados > cantidad ? ' ⚠ Clasifican más equipos de los que hay.' : ''),
-    }));
+    const partidosFase = (porGrupo * (porGrupo - 1) / 2) * o.cantidadGrupos * (o.vueltas || 1);
+
+    piezas.push(el('p', { class: 'ayuda' }, [
+      unSoloGrupo
+        ? `Los ${cantidad} equipos juegan todos contra todos (${partidosFase} partidos) y pasan ${clasificados} a la eliminatoria.`
+        : `Quedan grupos de ${porGrupo} equipos (${partidosFase} partidos en total) y pasan ${clasificados} a la eliminatoria.`,
+      clasificados > cantidad ? ' ⚠ Clasifican más equipos de los que hay.' : '',
+      clasificados > 1 ? ` ${textoDeCruces(clasificados, unSoloGrupo)}` : '',
+    ]));
   }
 
   if (borrador.modalidad === 'americano') {
@@ -1137,4 +1163,13 @@ function crear() {
 function rondasDelCompleto(cantidad, partidos) {
   const canchas = Math.max(1, Math.floor(cantidad / 4));
   return Math.ceil(partidos / canchas);
+}
+
+/** Cómo se cruzan los clasificados en la llave, dicho en palabras. */
+function textoDeCruces(clasificados, unSoloGrupo) {
+  if (!unSoloGrupo) return 'Los primeros de cada grupo no se cruzan entre sí hasta el final.';
+  if (clasificados === 2) return 'La final la juegan el 1º y el 2º.';
+  if (clasificados === 4) return 'Las semifinales son 1º contra 4º y 2º contra 3º.';
+  if (clasificados === 8) return 'Los cuartos son 1º-8º, 4º-5º, 2º-7º y 3º-6º.';
+  return 'El mejor ubicado enfrenta al peor, y así hacia el centro de la tabla.';
 }
